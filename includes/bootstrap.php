@@ -96,16 +96,16 @@ class App
 
     private function view($template, $data = [])
     {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/templates/'. $_SESSION['language'] .'/' . $template)) {
-            // load config
-            global $_;
+        // load config
+        global $_;
+        if (file_exists($_['base_path'] . '/templates/'. $_SESSION['language'] .'/' . $template)) {        
             // convert the data array to variables
             if (isset($data) && !empty($data)) {
                 extract($data);
             }
             $_['language'] = $_SESSION['language'];
-            $template = $_SERVER['DOCUMENT_ROOT'] . '/templates/'. $_SESSION['language'] .'/' . $template;
-            require $_SERVER['DOCUMENT_ROOT'] . '/templates/master.template.php';
+            $template = $_['base_path'] . '/templates/'. $_SESSION['language'] .'/' . $template;
+            require $_['base_path'] . '/templates/master.template.php';
         } else {
             die('Template not found');
         }
